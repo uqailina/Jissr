@@ -589,6 +589,140 @@
     height:100%; width:0%; border-radius:999px;
     background:linear-gradient(90deg, var(--turquoise-light), var(--turquoise));
   }
+  .score-info-btn{
+    margin-top:12px;
+    background:rgba(255,255,255,.15);
+    color:#fff;
+    border:none;
+    padding:8px 14px;
+    border-radius:10px;
+    font-family:inherit;
+    font-size:12px;
+    font-weight:700;
+    cursor:pointer;
+    transition:.2s;
+}
+
+.score-info-btn:hover{
+    background:rgba(255,255,255,.25);
+}
+.score-modal{
+
+display:none;
+
+position:fixed;
+
+left:0;
+
+top:0;
+
+width:100%;
+
+height:100%;
+
+background:rgba(0,0,0,.45);
+
+justify-content:center;
+
+align-items:flex-end;
+
+z-index:9999;
+
+}
+
+.score-modal-content{
+
+width:100%;
+
+max-width:375px;
+
+background:#fff;
+
+border-radius:25px 25px 0 0;
+
+padding:22px;
+
+max-height:80%;
+
+overflow:auto;
+
+animation:slideUp .3s;
+
+}
+
+@keyframes slideUp{
+
+from{
+
+transform:translateY(100%);
+
+}
+
+to{
+
+transform:translateY(0);
+
+}
+
+}
+
+.score-modal-header{
+
+display:flex;
+
+justify-content:space-between;
+
+font-size:18px;
+
+font-weight:800;
+
+margin-bottom:20px;
+
+}
+
+.score-modal-header span{
+
+cursor:pointer;
+
+font-size:22px;
+
+}
+
+.score-item{
+
+display:flex;
+
+justify-content:space-between;
+
+padding:12px 0;
+
+border-bottom:1px solid #eee;
+
+}
+
+.score-item span:first-child{
+
+font-weight:600;
+
+}
+
+.score-section h4{
+
+margin:18px 0 10px;
+
+font-size:15px;
+
+}
+
+.score-section ul{
+
+padding-right:18px;
+
+line-height:2;
+
+color:#555;
+
+}
 </style>
 </head>
 <body>
@@ -811,6 +945,9 @@ const screens = [
           <div class="t">درجة الاستقرار المالي</div>
           <div class="d">وضعك المالي جيد ويتحسّن</div>
           <div class="chip">↑ ارتفعت 4 نقاط هذا الشهر</div>
+          <button class="score-info-btn" onclick="toggleScoreInfo()">
+    اقرأ المزيد
+</button>
         </div>
       </div>
 
@@ -1119,8 +1256,81 @@ function attachSwipeNav(el){
   }, {passive:true});
 }
 attachSwipeNav(document.getElementById('phoneTapZone'));
+function toggleScoreInfo(){
 
+const modal=document.getElementById("scoreInfoModal");
+
+if(modal.style.display==="flex"){
+
+modal.style.display="none";
+
+}else{
+
+modal.style.display="flex";
+
+}
+
+}
 render();
 </script>
+<div id="scoreInfoModal" class="score-modal">
+
+<div class="score-modal-content">
+
+<div class="score-modal-header">
+درجة الاستقرار المالي
+<span onclick="toggleScoreInfo()">✕</span>
+</div>
+
+<div class="score-section">
+
+<h4>تم احتساب الدرجة بناءً على:</h4>
+
+<div class="score-item">
+<span>🏦 الحسابات المرتبطة</span>
+<span>35%</span>
+</div>
+
+<div class="score-item">
+<span>💳 البطاقات البنكية</span>
+<span>25%</span>
+</div>
+
+<div class="score-item">
+<span>📈 التدفقات المالية</span>
+<span>20%</span>
+</div>
+
+<div class="score-item">
+<span>🔁 الاشتراكات الشهرية</span>
+<span>10%</span>
+</div>
+
+<div class="score-item">
+<span>✅ الالتزام المالي</span>
+<span>10%</span>
+</div>
+
+<hr>
+
+<h4>البيانات المستخدمة</h4>
+
+<ul>
+<li>الحسابات المرتبطة عبر Open Banking</li>
+<li>البطاقات البنكية</li>
+<li>الاشتراكات الشهرية</li>
+<li>الدخل والمصروفات</li>
+<li>الرصيد الحالي</li>
+</ul>
+
+<p style="margin-top:15px;font-size:13px;color:#666;line-height:1.7">
+يتم تحديث هذه الدرجة تلقائياً عند وصول بيانات جديدة من الحسابات المرتبطة.
+</p>
+
+</div>
+
+</div>
+
+</div>
 </body>
 </html>
